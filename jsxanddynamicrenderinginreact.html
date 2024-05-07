@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSX and Babel</title>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // Simple JSX Element
+    const SimpleJSXElement = <p>Seize the day</p>;
+
+    // Rendering Simple JSX Element
+    ReactDOM.render(SimpleJSXElement, document.getElementById('root'));
+
+    // Dynamic Content in JSX
+    const dynamicText = "Seize the day dynamically";
+    const JSXWithDynamicContent = <p>{dynamicText}</p>;
+
+    // Rendering JSX with Dynamic Content
+    ReactDOM.render(JSXWithDynamicContent, document.getElementById('root'));
+
+    // Conditional Rendering in JSX
+    const condition = true; // Change this value to toggle rendering
+
+    // JSX for Conditional Rendering
+    const JSXWithConditionalRendering = (
+        <div>
+            {condition ? <p>Seize the day when condition is true</p> : <p>Seize the day when condition is false</p>}
+        </div>
+    );
+
+    // Rendering JSX with Conditional Rendering
+    ReactDOM.render(JSXWithConditionalRendering, document.getElementById('root'));
+</script>
+</body>
+</html>
