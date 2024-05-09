@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Gallery</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    function Image({ src, alt }) {
+      return <img src={src} alt={alt || 'Gallery image'} style={{ width: '100%', height: 'auto' }} />;
+    }
+
+    function Gallery({ children }) {
+      return (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gap: '10px',
+          padding: '10px'
+        }}>
+          {children}
+        </div>
+      );
+    }
+
+    const App = () => (
+      <Gallery>
+        <Image src="https://techbeacon.com/sites/default/files/styles/social/public/6-hot-industries-for-software-engineering-careers.jpg?itok=ZU-lvysH" alt="Placeholder 1" />
+        <Image src="https://resize.indiatvnews.com/en/resize/oldbucket/1200_-/businessindia/-companies-that82971.jpg" alt="Placeholder 2" />
+        <Image src="https://tfipost.com/wp-content/uploads/2020/02/1-5.jpg" alt="Placeholder 3" />
+        <Image src="https://thumbs.dreamstime.com/b/beautiful-rain-forest-ang-ka-nature-trail-doi-inthanon-national-park-thailand-36703721.jpg" alt="Placeholder 4" />
+      </Gallery>
+    );
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+  </script>
+</body>
+</html>
