@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const Quiz = () => {
+        const questions = [
+          {
+            question: "What is the capital of France?",
+            options: ["Paris", "London", "Berlin"],
+            correctAnswer: "Paris",
+          },
+          {
+            question: "What is the largest mammal?",
+            options: ["Elephant", "Blue Whale", "Giraffe"],
+            correctAnswer: "Blue Whale",
+          },
+          {
+            question: "What is 2 + 2?",
+            options: ["3", "4", "5"],
+            correctAnswer: "4",
+          },
+        ];
+
+        const [answers, setAnswers] = React.useState(Array(questions.length).fill(""));
+        const [score, setScore] = React.useState(null);
+        const [submitted, setSubmitted] = React.useState(false);
+
+        const handleAnswerChange = (index, e) => {
+          const newAnswers = [...answers];
+          newAnswers[index] = e.target.value;
+          setAnswers(newAnswers);
+        };
+
+        const calculateScore = () => {
+          let totalScore = 0;
+          for (let i = 0; i < questions.length; i++) {
+            if (answers[i] === questions[i].correctAnswer) {
+              totalScore++;
+            }
+          }
+          setScore(totalScore);
+          setSubmitted(true);
+        };
+
+        const restartQuiz = () => {
+          setAnswers(Array(questions.length).fill(""));
+          setScore(null);
+          setSubmitted(false);
+        };
+
+        return (
+          <div>
+            {!submitted ? (
+              <div>
+                {questions.map((question, index) => (
+                  <div key={index}>
+                    <h3>{question.question}</h3>
+                    <ul>
+                      {question.options.map((option, optionIndex) => (
+                        <li key={optionIndex}>
+                          <label>
+                            <input
+                              type="radio"
+                              name={`question-${index}`}
+                              value={option}
+                              checked={answers[index] === option}
+                              onChange={(e) => handleAnswerChange(index, e)}
+                            />
+                            {option}
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                <button onClick={calculateScore}>Submit</button>
+              </div>
+            ) : (
+              <div>
+                <h2>Your Score: {score}/{questions.length}</h2>
+                <button onClick={restartQuiz}>Restart Quiz</button>
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      ReactDOM.render(<Quiz />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
